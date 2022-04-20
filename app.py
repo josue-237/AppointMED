@@ -7,3 +7,8 @@ app = Flask(__name__)
 client = pymongo.MongoClient("mongodb+srv://admin:" + os.environ["MONGO_APPOINTMED_PWD"] +
                              "@cluster0.vsmni.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = client.test
+
+
+@app.route("/seed_db")
+def seed_db():
+    pass
