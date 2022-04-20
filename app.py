@@ -9,6 +9,12 @@ client = pymongo.MongoClient("mongodb+srv://admin:" + os.environ["MONGO_APPOINTM
 db = client.test
 
 
+@app.route("/")
+@app.route("/home")
+def home():
+    pass
+
+
 @app.route("/seed_db")
 def seed_db():
     pass
