@@ -5,15 +5,30 @@ html body {
     height: 90px;
     width: 90px;
     margin-left: 20px;
-    margin-right: 75vw;
 }
 .navbar {
     display: flex;
     flex-direction: row;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
-.navbar a{
-    margin: 20px;
+.navbar-elements{
+    position: absolute;
+    right: 20px;
+    margin-top: 20px;
     padding-top: 12px;
     height: 0;
+}
+.navbar-elements a {
+    margin: 20px;
+}
+.about-header {
+    font-size: 3em;
+}
+.column {
+    float: left;
+    width: 33.33%;
+}
+.center {
+    display: flex;
+    justify-content: center;
 }
