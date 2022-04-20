@@ -24,11 +24,14 @@ html body {
 .about-header {
     font-size: 3em;
 }
-.column {
-    float: left;
-    width: 33.33%;
-}
-.center {
+.about-content h1 {
     display: flex;
     justify-content: center;
+    font-size: 4em;
+}
+.about-content p {
+    position: absolute;
+    left: 50vw;
+    width: 500px;
+    margin-left: -250px;
 }
