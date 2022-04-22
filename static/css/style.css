@@ -1,5 +1,15 @@
+/* clears the ‘X’ from Internet Explorer */
+input[type=search]::-ms-clear { display: none; width : 0; height: 0; }
+input[type=search]::-ms-reveal { display: none; width : 0; height: 0; }
+/* clears the ‘X’ from Chrome */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }
+
 html body {
     min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
 }
 .header-logo {
     height: 90px;
@@ -11,9 +21,89 @@ html body {
     display: flex;
     flex-direction: row;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    height: 10vh;
 }
 .navbar a{
     margin: 20px;
     padding-top: 12px;
     height: 0;
 }
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+#doctor-name{
+    display: flex;
+    align-items: center;
+    width: 70%;
+}
+
+
+#search-input{
+    display: flex;
+    width: 100%;
+}
+
+#map{
+  width: 100%;
+  height: 100%; 
+  /* margin: 50px; */
+  
+}
+#search{
+    height: 90vh;
+    width: 30vw;
+    padding: 30px;
+}
+
+#map-view{
+    height: 90vh;
+    width: 70vw;
+    padding: 30px;
+}
+#main{  
+    height: 90vh;
+}
+
+#doctors{
+    height: 75vh;
+    padding-top: 40px;
+}
+
+#submit {
+    float: right;
+    background-color: #2292A4;
+    color: white;
+    padding: 7px 20px;
+    cursor: pointer;
+}
+
+.doctor {
+    display: flex;
+    height: 7vh;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.doctor-photo {
+    font-size: 48px;
+}
+
+.doctor-photo-wrapper{
+    width: 10%;
+}
+
+.doctor-name{
+    width: 60%;
+    padding-left: 20px;
+}
+
+.doctor-specialty{
+    width: 30%;
+}
+
+.star {
+    font-size: 14px;
+}
+
