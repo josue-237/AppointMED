@@ -59,3 +59,33 @@ class Event:
             "appointment_id": self.appointment_id,
             "doctor_id": self.doctor_id
         }
+
+    @staticmethod
+    def create_event(start_time: str, date: str, appointment_id: str, doctor_id: str, database):
+        """
+        Method returns an event object and stores it in a mongoDB database
+        :param start_time: Time event starts
+        :param date: Date event takes place
+        :param appointment_id: ID of appointment associated with event
+        :param doctor_id: ID of doctor associated with event
+        :param database: MongoDB database
+        :return: Event object
+        """
+        event = Event(start_time, date, appointment_id, doctor_id)
+        event_document = event.to_json()
+        collection = database.db.events
+        collection.insert_one(event_document)
+        return event
+
+    @staticmethod
+    def get_event(appointment_id: str, database):
+        """
+        Method returns an event object from a mongoDB database
+        :param appointment_id: ID of appointment associated with event
+        :param database: MongoDB database
+        :return: Event object
+        """
+        collection = database.db.events
+        event_document = collection.find_one({"appointment_id": appointment_id})
+        return Event(event_document["start_time"], event_document["date"], event_document["appointment_id"],
+                     event_document["doctor_id"])
