@@ -1,20 +1,23 @@
 class Appointment:
-    def __init__(self,doctor_image,address,specialty, appointment_id, doctor_id):
+    def __init__(self,doctor_name,doctor_image,phone,address,specialty, appointment_id, doctor_id):
         """
         Initializes Event object
-        :param doctor_image: Time event ends
+        :param doctor_name: Name of doctor
+        :param doctor_image: Profile image URL for doctor
         :param address: ID of appointment associated with event
         :param specialty: specialty of doctor
         :param appointment_id: appointment id created when an appointment is scheduled
         :param doctor_id: ID of doctor associated with event
+        :param phone: Phone to contact doctor's office
         """
 
-        
+        self.name=self.set_doctor_name(doctor_name)
         self.appointment_id = self.set_appointment_id(appointment_id)
         self.doctor_id = self.set_doctor_id(doctor_id)
         self.doctor_image=self.set_doctor_image(doctor_image)
         self.address=self.set_doctor_address(address)
         self.specialty=self.set_doctor_specialty(specialty)
+        self.phone=self.set_doctor_phone(phone)
 
     # Setters
     
@@ -39,5 +42,22 @@ class Appointment:
         if type(doctor_image) != str:
             raise TypeError("doctor_image must be a string")
         self.doctor_id = doctor_image
+    def set_doctor_name(self, doctor_name):
+        if type(doctor_name) != str:
+            raise TypeError("doctor_name must be a string")
+        self.name = doctor_name
+    def set_doctor_phone(self, doctor_phone):
+        if type(doctor_phone) != str:
+            raise TypeError("doctor_phone must be a string")
+        self.name = doctor_phone
+    @staticmethod
+    def get_available_time_slots(doc_id,day,database,time_slots):
+        collection = database.db.events
+        time_slots_filled=list(collection.find({"$and":[ {"doc_id":doc_id}, {"day":day}]}))
+        for i in time_slots_filled:
+            time_slots=time_slots.remove(i)
+        return time_slots
+    def to_json(self):
+        return {'username': self.username, 'ratings': self.ratings , 'raters_amount': self.raters_amount, 'user_items': self.user_items, 'profile_image': self.profile_image}
 
     

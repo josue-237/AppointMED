@@ -1,5 +1,5 @@
 class Event:
-    def __init__(self, date, start_time, appointment_id, doctor_id):
+    def __init__(self, date: str, start_time: str, appointment_id: str, doctor_id: str):
         """
         Initializes Event object
         :param start_time: Time event starts
@@ -14,22 +14,22 @@ class Event:
         self.doctor_id = self.set_doctor_id(doctor_id)
 
     # Setters
-    def set_start_time(self, start_time):
+    def set_start_time(self, start_time: str):
         if type(start_time) != str:
             raise TypeError("start_time must be a string")
         self.start_date = start_time
 
-    def set_date(self, date):
+    def set_date(self, date: str):
         if type(date) != str:
             raise TypeError("date must be a string")
         self.end_date = date
 
-    def set_appointment_id(self, appointment_id):
+    def set_appointment_id(self, appointment_id: str):
         if type(appointment_id) != str:
             raise TypeError("appointment_id must be a string")
         self.appointment_id = appointment_id
 
-    def set_doctor_id(self, doctor_id):
+    def set_doctor_id(self, doctor_id: str):
         if type(doctor_id) != str:
             raise TypeError("doctor_id must be a string")
         self.doctor_id = doctor_id
