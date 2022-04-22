@@ -1,28 +1,28 @@
 class Event:
-    def __init__(self, start_date, end_date, appointment_id, doctor_id):
+    def __init__(self, date, start_time, appointment_id, doctor_id):
         """
         Initializes Event object
-        :param start_date: Time event starts
-        :param end_date: Time event ends
+        :param start_time: Time event starts
+        :param date: Date event takes place
         :param appointment_id: ID of appointment associated with event
         :param doctor_id: ID of doctor associated with event
         """
 
-        self.start_date = self.set_start_date(start_date)
-        self.end_date = self.set_end_date(end_date)
+        self.start_date = self.set_start_time(start_time)
+        self.end_date = self.set_date(date)
         self.appointment_id = self.set_appointment_id(appointment_id)
         self.doctor_id = self.set_doctor_id(doctor_id)
 
     # Setters
-    def set_start_date(self, start_date):
-        if type(start_date) != str:
-            raise TypeError("start_date must be a string")
-        self.start_date = start_date
+    def set_start_time(self, start_time):
+        if type(start_time) != str:
+            raise TypeError("start_time must be a string")
+        self.start_date = start_time
 
-    def set_end_date(self, end_date):
-        if type(end_date) != str:
-            raise TypeError("end_date must be a string")
-        self.end_date = end_date
+    def set_date(self, date):
+        if type(date) != str:
+            raise TypeError("date must be a string")
+        self.end_date = date
 
     def set_appointment_id(self, appointment_id):
         if type(appointment_id) != str:
@@ -35,10 +35,10 @@ class Event:
         self.doctor_id = doctor_id
 
     # Getters
-    def get_start_date(self):
+    def get_start_time(self):
         return self.start_date
 
-    def get_end_date(self):
+    def get_date(self):
         return self.end_date
 
     def get_appointment_id(self):
@@ -54,8 +54,8 @@ class Event:
         :return: dictionary of properties and class values
         """
         return {
-            "start_date": self.start_date,
-            "end_date": self.end_date,
+            "start_time": self.start_date,
+            "date": self.end_date,
             "appointment_id": self.appointment_id,
             "doctor_id": self.doctor_id
         }
