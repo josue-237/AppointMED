@@ -22,19 +22,30 @@
             <img src="https://www.pinnaclecare.com/wp-content/uploads/2017/12/bigstock-African-young-doctor-portrait-28825394.jpg" >
         </div>
         &nbsp;
-        <p>Available Time Slots:</p>
-    <div style="align-items: center; align-self: center; max-width: 35vw; float:inline-start; font-size: larger;">
-    <form>   
+    {% if not day %}  
+    <div style="align-items: center; align-self: center; max-width: 35vw; font-size: larger; display: absolute; float: left; margin-left: 10vw;">
+            <form method="POST">
+                <label for="day">Date:</label>
+                <input type="date" id="day" name="day">
+                <input type="submit">
+              </form>
+    <form method="POST">  
+    {% endif %}
+    {% if day %}
+    <p>Available Time Slots:</p> 
         {% for time in time_slots %}
+    <div style="align-items: center; align-self: center; align-content: center; float:left">   
         <div>
-            <input type="radio" id="time" name="time" value={{time}} style="margin: 2px;"
+            <input type="radio" id="time" name="time" value={{time}}
                    checked>
             <label for="time">{{time}}</label>
        </div>
         {% endfor %} 
     </div>
-    <input type="submit">
-        <label for="submit">book appoitment</label>  
+    {% endif %}
+    <div style= "margin-top:30px;">
+    <input type="submit" >
+        <label for="submit">Book Appointment</label>  
     </div>
 </form> 
 </body>
