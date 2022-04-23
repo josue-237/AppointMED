@@ -66,8 +66,15 @@ def schedule():
                                doctor_name="Richard Silverstein", doctor_specialty="Dermatologist",
                                doctor_address="14 Calle Peral N Ste La Mayaguez PR, 00680, Estados Unidos",
                                doctor_phone="559-206-4429", medical_plans=medical_plans)
-    # elif request.form == "POST"  and time:
-    #     return redirect('/Schedule/'+time)
+
+
+@app.route("/event", methods=["GET", "POST"])
+def appointment():
+    if request.form == "GET":
+        return render_template("temp.html")
+        qrcode.make("Temp line, delete later")
+    else:
+        pass
 
 
 @app.route("/datepicker")
@@ -96,9 +103,9 @@ def seed_db():
     # event3=Event.create_event("22-06-2022","10:30am","2423fe323",doc_id,mongo)
     # event4=Event.create_event("22-06-2022","11:30am","2423fe323",doc_id,mongo)
     # event5=Event.create_event("22-06-2022","01:30pm","2423fe323",doc_id,mongo)
-    
+
     return "seeded successfully"
-  
+
 def to_json(start_time,date,appointment_id,doc_id):
         """
         Method returns every class property as a JSON
