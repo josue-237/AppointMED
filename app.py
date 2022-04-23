@@ -5,6 +5,8 @@ from appointment import Appointment
 from flask_pymongo import PyMongo
 import certifi
 from event import Event
+import qrcode
+
 app = Flask(__name__)
 # MongoDB
 # client = pymongo.MongoClient("mongodb+srv://admin:" + os.environ["MONGO_APPOINTMED_PWD"] +
@@ -41,11 +43,11 @@ def schedule():
     medical_plans = ["Triple S", "Medicaid", "UnitedHealth"]
     doctor_name = "Richard Silverstein"
     doc_id = doctor_ids[doctor_name]
-    
+
     if request.form == "GET":
-        time_slots2=[]
-        time=''
-        
+        time_slots2 = []
+        time = ''
+
         # time_slots= Appointment.get_available_time_slots(doc_id,"04-22-2022",mongo)
         return render_template("appointment.html", day='', time_slots=time_slots2,
                                doctor_image="https://www.pinnaclecare.com/wp-content/uploads/2017/12/bigstock-African-young-doctor-portrait-28825394.jpg",
@@ -54,13 +56,13 @@ def schedule():
                                doctor_phone="559-206-4429", medical_plans=medical_plans)
     else:
         day = request.form.get('day')
-        time=''
-        time=request.form.get('time')
-        appt_id=Appointment.generate_appointment_id()
+        time = ''
+        time = request.form.get('time')
+        appt_id = Appointment.generate_appointment_id()
         collection = mongo.db.events
-        time_slots2=Appointment.get_available_time_slots(doc_id,day,mongo,time_slots)
+        time_slots2 = Appointment.get_available_time_slots(doc_id, day, mongo, time_slots)
         if time:
-            return redirect("/Schedule/"+appt_id)
+            return redirect("/Schedule/" + appt_id)
         return render_template("appointment.html", day=day, time_slots=time_slots2,
                                doctor_image="https://www.pinnaclecare.com/wp-content/uploads/2017/12/bigstock-African-young-doctor-portrait-28825394.jpg",
                                doctor_name="Richard Silverstein", doctor_specialty="Dermatologist",
@@ -86,18 +88,18 @@ def datepicker():
 def seed_db():
     # collection = mongo.db.events
     # collection.remove({})
-    doc_id=doctor_ids["Richard Silverstein"]
+    doc_id = doctor_ids["Richard Silverstein"]
     collection = mongo.db.events
-    event1=Event("22-06-2022","08:30am","2423fe323",doc_id)
-    event1json=to_json("08:30am","04/25/2022","2423fe323",doc_id)
+    event1 = Event("22-06-2022", "08:30am", "2423fe323", doc_id)
+    event1json = to_json("08:30am", "04/25/2022", "2423fe323", doc_id)
     collection.insert(event1json)
-    event2json=to_json("09:30am","04/25/2022","2423fe323",doc_id)
+    event2json = to_json("09:30am", "04/25/2022", "2423fe323", doc_id)
     collection.insert(event2json)
-    event3json=to_json("10:30am","04/25/2022","2423fe323",doc_id)
+    event3json = to_json("10:30am", "04/25/2022", "2423fe323", doc_id)
     collection.insert(event3json)
-    event4json=to_json("11:30am","04/25/2022","2423fe323",doc_id)
+    event4json = to_json("11:30am", "04/25/2022", "2423fe323", doc_id)
     collection.insert(event4json)
-    event5json=to_json("01:30pm","04/25/2022","2423fe323",doc_id)
+    event5json = to_json("01:30pm", "04/25/2022", "2423fe323", doc_id)
     collection.insert(event5json)
     # event2=Event.create_event("22-06-2022","09:30am","2423fe323",doc_id,mongo)
     # event3=Event.create_event("22-06-2022","10:30am","2423fe323",doc_id,mongo)
@@ -106,14 +108,15 @@ def seed_db():
 
     return "seeded successfully"
 
-def to_json(start_time,date,appointment_id,doc_id):
-        """
+
+def to_json(start_time, date, appointment_id, doc_id):
+    """
         Method returns every class property as a JSON
         :return: dictionary of properties and class values
         """
-        return {
-            "start_time": start_time,
-            "date": date,
-            "appointment_id": appointment_id,
-            "doctor_id": doc_id
-        }
+    return {
+        "start_time": start_time,
+        "date": date,
+        "appointment_id": appointment_id,
+        "doctor_id": doc_id
+    }
