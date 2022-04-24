@@ -16,13 +16,13 @@
     <div class="navbar">
         <img class="header-logo" src="../static/images/AppointMED.svg" alt="AppointMED logo">
         <div class="navbar-elements">
-            <a href="home.html">Home</a>
-            <a href="appointment.html">Appointment</a>
-            <a href="">About</a>
+            <a class="nav-element border-transparent rounded-full hover:border-emerald-500" href="home.html">Home</a>
+            <a class="nav-element border-transparent rounded-full hover:border-emerald-500" href="appointment.html">Appointment</a>
+            <a class="nav-element border-transparent rounded-full hover:border-emerald-500" href="">About</a>
         </div>
     </div>
     <div id="main" class="flex">
-        <form id="search">
+        <form id="search"  method="post" action="/home">
             <div id="search-input">
                 <div id="doctor-name">
                     <span class="material-icons material-icons-outlined"> search</span>
@@ -30,6 +30,7 @@
                 </div>
          
                 <select name="doctor-specialty" id="doctor-specialty">
+                    <option value="">All</option>
                     <option value="dermatologist">Dermatologist</option>
                     <option value="allergist">Allergist</option>
                     <option value="cardiologist">Cardiologist</option>
@@ -37,14 +38,15 @@
                 </select>
             </div>
             <div id="doctors">
-                <div class="doctor">
+                {% for doctor in doctors %}
+                <div class="doctor cursor-pointer border-gray-300" data-geo="{{ doctor['lat'] }},{{ doctor['lng'] }}">
                     <div class="doctor-photo-wrapper">
                       <span class="doctor-photo material-icons material-symbols-outlined">
                         account_circle_full
                     </span>  
                     </div>  
                     <div class="doctor-name">
-                        <p style="font-weight: bolder;">Dr. Damaris Torres</p>
+                        <p style="font-weight: bolder;">Dr. {{ doctor['first_name'] }} {{ doctor['last_name'] }}</p>
                         <div class="review">
                            <span class="star material-icons material-symbols-outlined">star</span>
                             <span class="star material-icons material-symbols-outlined">star</span>
@@ -54,49 +56,12 @@
                         </div>      
                     </div>
                     <div class="doctor-specialty">
-                        Neurologist
+                        {% for specialty in doctor['specialties'] %}
+                            {{ specialty }}
+                        {% endfor %}
                     </div>
                 </div>
-
-                <div class="doctor">
-                    <div class="doctor-photo-wrapper">
-                      <span class="doctor-photo material-icons material-symbols-outlined">
-                        account_circle_full
-                    </span>  
-                    </div>  
-                    <div class="doctor-name">
-                        <p style="font-weight: bolder;">Dr. Jose Rodriguez</p>
-                        <div class="review">
-                           <span class="star material-icons material-symbols-outlined">star</span>
-                            <span class="star material-icons material-symbols-outlined">star</span>
-                            <span class="star material-icons material-symbols-outlined">star</span>
-                            <span class="star material-icons material-symbols-outlined">star</span>
-                        </div>      
-                    </div>
-                    <div class="doctor-specialty">
-                        Dermatologist
-                    </div>
-                </div>
-
-                <div class="doctor">
-                    <div class="doctor-photo-wrapper">
-                      <span class="doctor-photo material-icons material-symbols-outlined">
-                        account_circle_full
-                    </span>  
-                    </div>  
-                    <div class="doctor-name">
-                        <p style="font-weight: bolder;">Dr. Pedro Figueroa</p>
-                        <div class="review">
-                           <span class="star material-icons material-symbols-outlined">star</span>
-                            <span class="star material-icons material-symbols-outlined">star</span>
-                            <span class="star material-icons material-symbols-outlined">star</span>
-                            <span class="star material-icons material-symbols-outlined">star</span>
-                        </div>      
-                    </div>
-                    <div class="doctor-specialty">
-                        Allergist
-                    </div>
-                </div>
+                {% endfor %}
 
             </div>
             <div class="rounded-full" id="submit">

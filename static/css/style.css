@@ -12,8 +12,8 @@ html body {
     font-family: 'Roboto', sans-serif;
 }
 .header-logo {
-    height: 90px;
-    width: 90px;
+    height: 80px;
+    width: 80px;
     margin-left: 20px;
 }
 .navbar {
@@ -82,13 +82,16 @@ input:focus, textarea:focus, select:focus{
 
 .doctor {
     display: flex;
-    height: 7vh;
+    height: 8vh;
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-top: 10px;
+    border-width: 0px 0px 1px 0px;
 }
 
 .doctor-photo {
     font-size: 48px;
+    color: #336AEB;
 }
 
 .doctor-photo-wrapper{
@@ -106,6 +109,7 @@ input:focus, textarea:focus, select:focus{
 
 .star {
     font-size: 14px;
+    color:  #ffa41b;
 }
 
 .navbar-elements a {
@@ -124,4 +128,10 @@ input:focus, textarea:focus, select:focus{
     left: 50vw;
     width: 500px;
     margin-left: -250px;
+}
+
+.nav-element {
+    border-width: 1px 1px 1px 1px;
+    padding: 5px 10px;
+
 }
