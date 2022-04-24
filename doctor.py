@@ -328,7 +328,7 @@ class Doctor:
             raise TypeError("Doctor'sphoto url should be of type string")
         return photo_url
 
-    def generate_doctor_id():
+    def generate_doctor_id(self):
         """ Generates a unique doctor's id
         """
         cur_time = str(time.time())
