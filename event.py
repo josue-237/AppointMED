@@ -7,6 +7,10 @@ class Event:
         :param appointment_id: ID of appointment associated with event
         :param doctor_id: ID of doctor associated with event
         """
+        self.date = None
+        self.start_time = None
+        self.appointment_id = None
+        self.doctor_id = None
         self.set_date(date)
         self.set_start_time(start_time)
         self.set_appointment_id(appointment_id)
@@ -23,7 +27,7 @@ class Event:
     def set_date(self, date: str):
         if type(date) != str:
             raise TypeError("date must be a string")
-        date_elements = date.split("-")
+        date_elements = date.split("/")
         day = date_elements[0]
         month = date_elements[1]
         year = date_elements[2]
