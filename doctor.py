@@ -15,7 +15,7 @@ class Doctor:
         The doctor's First Name
     last_name : str
         The doctor's Last Name
-    specialty : list of str
+    specialties : list of str
         A list of specialties the doctor has
     address : str
         The doctor's office address
@@ -36,6 +36,14 @@ class Doctor:
 
     Methods
     -------
+    create_doctor(first_name, last_name, specialties, address, lat, lng, medical_coverages, phone_number, photo_url, database)
+       A static method, that creates a doctor object and adds it to the database
+    get_doctors(database):
+       A static method, that gets all of the doctors in the database
+    get_filtered_doctors(database, filters):
+       A static method, that filters doctors by the given input from the user
+    to_json(self):
+       Converts a doctor object to json format
     valid_first_name(first_name)
        Validates the type and value of the first_name
     valid_last_name(self, last_name)
@@ -68,7 +76,7 @@ class Doctor:
             The doctor's First Name
         last_name : str
             The doctor's Last Name
-        specialty : list of str
+        specialties : list of str
             A list of specialties the doctor has
         address : str
             The doctor's office address
@@ -87,7 +95,7 @@ class Doctor:
         """   
         self.first_name = self.valid_first_name(first_name)
         self.last_name = self.valid_last_name(last_name)
-        self.specialty = self.valid_specialties(specialties)
+        self.specialties = self.valid_specialties(specialties)
         self.address = self.valid_address(address)
         self.lat = self.valid_lat(lat)
         self.lng = self.valid_lng(lng)
@@ -95,6 +103,38 @@ class Doctor:
         self.phone_number = self.valid_phone_number(phone_number)
         self.photo_url = self.valid_photo_url(photo_url)
         self.doc_id = self.generate_doctor_id()
+
+    
+    @staticmethod
+    def create_doctor(first_name, last_name, specialties, address, lat, lng, medical_coverages, phone_number, photo_url, database):
+        """ A static method, that creates a doctor object and adds it to the database
+        """
+        doctor = Doctor(first_name, last_name, specialties, address, lat, lng, medical_coverages, phone_number, photo_url)
+        doctor_document = doctor.to_json()
+        collection = database.db.doctors
+        print(doctor_document)
+        collection.insert_one(doctor_document)
+        return doctor
+    
+    @staticmethod
+    def get_doctors(database):
+        """ A static method, that gets all of the doctors in the database
+        """
+        collection = database.db.doctors
+        doctors = collection.find()
+        return list(doctors)
+
+    @staticmethod
+    def get_filtered_doctors(database, filters):
+        """ A static method, that filters doctors by the given input from the user
+        """
+        pass
+
+    def to_json(self):
+        """ Converts a doctor object to json format
+        """
+        return {'first_name': self.first_name, 'specialties': self.specialties , 'address': self.address, 'lat': self.lat, 'lng': self.lng, 'medical_coverages': self.medical_coverages, 'phone_number': self.phone_number, 'photo_url': self.photo_url, 'doc_id': self.doc_id}
+
 
     def valid_first_name(self, first_name):
         """ Validates the type and value of the first_name
@@ -138,7 +178,7 @@ class Doctor:
             raise TypeError("The doctor's last name is not of type string")
         if len(last_name) > 25:
             raise ValueError("The doctor's last name exceeds 25 characters")
-        pass
+        return last_name
 
     def valid_specialties(self, specialties):
         """ Validates the type and value of specialties
@@ -207,6 +247,7 @@ class Doctor:
             raise TypeError("The the doctor's office latitude cordinate is not of type float")
         if lat <= -91.0 or lat >= 90.0:
             raise ValueError("The Doctor's office latitude cordinate is not in range of [-90 to 90].")
+        return lat
             
     def valid_lng(self, lng):
         """ Validates the type and value of the lng
@@ -228,6 +269,7 @@ class Doctor:
             raise TypeError("The the doctor's office latitude cordinate is not of type float")
         if lng <= -181.0 or lng >= 181.0:
             raise ValueError("The Doctor's office latitude cordinate is not in range of [-180 to 180].")
+        return lng
     
     def valid_medical_coverages(self, medical_coverages):
         """ Validates the type and value of the medical_coverages
