@@ -133,7 +133,7 @@ class Doctor:
     def to_json(self):
         """ Converts a doctor object to json format
         """
-        return {'first_name': self.first_name, 'specialties': self.specialties , 'address': self.address, 'lat': self.lat, 'lng': self.lng, 'medical_coverages': self.medical_coverages, 'phone_number': self.phone_number, 'photo_url': self.photo_url, 'doc_id': self.doc_id}
+        return {'first_name': self.first_name, 'last_name': self.last_name, 'specialties': self.specialties , 'address': self.address, 'lat': self.lat, 'lng': self.lng, 'medical_coverages': self.medical_coverages, 'phone_number': self.phone_number, 'photo_url': self.photo_url, 'doc_id': self.doc_id}
 
 
     def valid_first_name(self, first_name):
