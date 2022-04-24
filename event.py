@@ -100,7 +100,7 @@ class Event:
         """
         event = Event(date, start_time, appointment_id, doctor_id)
         event_document = event.to_json()
-        collection = database.AppointMED.events
+        collection = database.db.events
         collection.insert_one(event_document)
         return event
 
@@ -112,7 +112,7 @@ class Event:
         :param database: MongoDB database
         :return: Event object
         """
-        collection = database.AppointMED.events
+        collection = database.db.events
         event_document = collection.find_one({"appointment_id": appointment_id})
         return Event(event_document["date"], event_document["start_time"], event_document["appointment_id"],
                      event_document["doctor_id"])
