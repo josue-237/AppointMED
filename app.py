@@ -91,23 +91,14 @@ def datepicker():
 def seed_db():
     # collection = mongo.db.events
     # collection.remove({})
-    # doc_id = doctor_ids["Richard Silverstein"]
+    doc_id = doctor_ids["Richard Silverstein"]
     # collection = mongo.db.events
-    # event1 = Event("22-06-2022", "08:30am", "2423fe323", doc_id)
-    # event1json = to_json("08:30am", "04/25/2022", "2423fe323", doc_id)
-    # collection.insert(event1json)
-    # event2json = to_json("09:30am", "04/25/2022", "2423fe323", doc_id)
-    # collection.insert(event2json)
-    # event3json = to_json("10:30am", "04/25/2022", "2423fe323", doc_id)
-    # collection.insert(event3json)
-    # event4json = to_json("11:30am", "04/25/2022", "2423fe323", doc_id)
-    # collection.insert(event4json)
-    # event5json = to_json("01:30pm", "04/25/2022", "2423fe323", doc_id)
-    # collection.insert(event5json)
-    # event2=Event.create_event("22-06-2022","09:30am","2423fe323",doc_id,mongo)
-    # event3=Event.create_event("22-06-2022","10:30am","2423fe323",doc_id,mongo)
-    # event4=Event.create_event("22-06-2022","11:30am","2423fe323",doc_id,mongo)
-    # event5=Event.create_event("22-06-2022","01:30pm","2423fe323",doc_id,mongo)
+    event1 = Event.create_event("22-06-2022", "08:30am", "2423fe323", doc_id, mongo)
+    event2 = Event.create_event("09:30am", "04/25/2022", "2423fe323", doc_id, mongo)
+    event3 = Event.create_event("10:30am", "04/25/2022", "2423fe323", doc_id, mongo)
+    event4 = Event.create_event("11:30am", "04/25/2022", "2423fe323", doc_id, mongo)
+    event5 = Event.create_event("01:30pm", "04/25/2022", "2423fe323", doc_id, mongo)
+
     collection = mongo.db.doctors
     Doctor.create_doctor("John", "Green", ['dermatologist',"allergist"], "2925 Sycamore Dr # 204, Simi Valley, CA 93065, United States", 18.368650, -66.053291, ["United Health","Triple S"], 7876899012, "https://totalcommercial.com/photos/1/206401-resized.jpg", mongo)
     doctor1 = Doctor.create_doctor("Damaris", "Torres", ["neurologist"], "San Juan, P.R.", 18.466333, -66.105721, ["Triple S", "Medicaid"], "787-777-7776", 'url()', mongo)
