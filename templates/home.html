@@ -39,6 +39,7 @@
             </div>
             <div id="doctors">
                 {% for doctor in doctors %}
+                <a href="/Schedule/ {{ doctor['doc_id']}} ">
                 <div class="doctor cursor-pointer border-gray-300" data-geo="{{ doctor['lat'] }},{{ doctor['lng'] }}">
                     <div class="doctor-photo-wrapper">
                       <span class="doctor-photo material-icons material-symbols-outlined">
@@ -61,6 +62,7 @@
                         {% endfor %}
                     </div>
                 </div>
+                </a>
                 {% endfor %}
 
             </div>
