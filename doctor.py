@@ -223,8 +223,6 @@ class Doctor:
         """
         if type(address) != str:
             raise TypeError("The doctor's address is not of type str")
-        if len(address) > 50:
-            raise ValueError("The doctor's address exceeds 50 characters")
         return address
 
     def valid_lat(self, lat):
