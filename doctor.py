@@ -1,4 +1,8 @@
 
+import hashlib
+import time
+
+
 class Doctor:
     """
     A class used to represent an Doctor
@@ -27,6 +31,8 @@ class Doctor:
         The doctor's photo url.
     curr_specialties : list of str
         a list of the current supported spealties.
+    doc_id: id
+        The doctor's unique id.
 
     Methods
     -------
@@ -48,6 +54,8 @@ class Doctor:
         Validates the type and value of the phone_number
     valid_photo_url(self, photo_url):
         Validates the type and value of the photo_url
+    generate_doctor_id():
+        Generates a unique doctor's id
     """
 
     curr_specialties = {'dermatologist', 'allergist', 'cardiologist', 'gastroenterologist'}
@@ -74,6 +82,8 @@ class Doctor:
             The doctor's office phone number.
         photo_url : str
             The doctor's photo url.
+        doc_id: id
+            The doctor's unique id.
         """   
         self.first_name = self.valid_first_name(first_name)
         self.last_name = self.valid_last_name(last_name)
@@ -84,6 +94,7 @@ class Doctor:
         self.medical_coverages = self.valid_medical_coverages(medical_coverages)
         self.phone_number = self.valid_phone_number(phone_number)
         self.photo_url = self.valid_photo_url(photo_url)
+        self.doc_id = self.generate_doctor_id()
 
     def valid_first_name(self, first_name):
         """ Validates the type and value of the first_name
@@ -274,3 +285,11 @@ class Doctor:
         if type(photo_url) != str:
             raise TypeError("Doctor'sphoto url should be of type string")
         return photo_url
+
+    def generate_doctor_id():
+        """ Generates a unique doctor's id
+        """
+        cur_time = str(time.time())
+        hashed_time = hashlib.sha1()
+        hashed_time.update(cur_time.encode("utf8"))
+        return hashed_time.hexdigest()
