@@ -27,18 +27,22 @@ class Event:
         day = date_elements[0]
         month = date_elements[1]
         year = date_elements[2]
-        if 0 < int(day) < 32 and 0 < int(month) < 13 and 0 < int(year) < 3000:
+        if int(day) <= 0 or int(day) >= 32:
+            raise ValueError("date is invalid")
+        if int(month) <= 0 or int(month) >= 13:
+            raise ValueError("date is invalid")
+        if int(year) <= 2000 or int(year) >= 3000:
             raise ValueError("date is invalid")
         self.date = date
 
     def set_start_time(self, start_time: str):
         if type(start_time) != str:
             raise TypeError("start_time must be a string")
-        if start_time not in ["08:00am", "08:30am", "09:00am", "09:30am", "10:00am", "10:30am", "11:00am", "11:30am",
-                              "12:00pm",
-                              "12:30pm", "01:00pm", "01:30pm", "02:00pm", "02:30pm", "03:00pm", "03:30pm", "04:00pm",
-                              "04:30pm"]:
-            raise ValueError("start_time is not a valid time")
+        # if start_time not in ["08:00am", "08:30am", "09:00am", "09:30am", "10:00am", "10:30am", "11:00am", "11:30am",
+        #                       "12:00pm",
+        #                       "12:30pm", "01:00pm", "01:30pm", "02:00pm", "02:30pm", "03:00pm", "03:30pm", "04:00pm",
+        #                       "04:30pm"]:
+        #     raise ValueError("start_time is not a valid time")
         self.start_time = start_time
 
     def set_appointment_id(self, appointment_id: str):
