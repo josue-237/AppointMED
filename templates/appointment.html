@@ -1,12 +1,46 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../static/css/style.css">
+    <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+    <script type="text/javascript"
+        src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
+        media="screen" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css" />
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var selectedDates = [];
+            datePicker = $('[id*=txtdate]').datepicker({
+                startDate: new Date(),
+                minDate: 0,
+                multidate: true,
+                format: "mm/dd/yyyy",
+                daysOfWeekHighlighted: "0,6",
+                language: 'en',
+                daysOfWeekDisabled: [0, 6]
+            });
+            datePicker.on('changeDate', function (e) {
+                if (e.dates.length <= 1) {
+                    selectedDates = e.dates;
+                } else {
+                    datePicker.data('datepicker').setDates(selectedDates);
+                    alert('You can only select 1 date.');
+                }
+            });
+        });
+    </script>
+
     <title>AppointMED</title>
 </head>
+
 <body>
     <div class="navbar">
         <img class="header-logo" src="../static/images/AppointMED.svg" alt="AppointMED logo">
@@ -17,36 +51,52 @@
         </div>
     </div>
     <div class="image-content">
-        <h1 style="text-align: center;font-size: xx-large;">Doctor Perez </h1>
-        <div style="float: left; margin: 0px 15px 0px 0px; max-width: 25vw;max-height: 25vh; margin: 3vw;display: block;">
-            <img src="https://www.pinnaclecare.com/wp-content/uploads/2017/12/bigstock-African-young-doctor-portrait-28825394.jpg" >
+        <div style="text-align: center;">
+            <p style="font-size: xx-large;">Dr. {{doctor_name}} </p>
+            <p style="font-size: x-large;"> Specialization: {{doctor_specialty}}</p>
+            <p style="font-size: large;"> Address: {{doctor_address}} </p>
+            <p style="font-size: large;"> Medical Plans covered:
+                {% for plan in medical_plans %}
+                {{plan}},
+                {% endfor %}
+            </p>
+            <p style="font-size: large;"> Contact Number: {{doctor_phone}} </p>
+            <div>
+
+            </div>
+        </div>
+        <div
+            style="float: left; margin: 0px 15px 0px 0px; max-width: 25vw;max-height: 25vh; margin-left: 3vw;display:flexbox;">
+            <img src={{doctor_image}}>
         </div>
         &nbsp;
-    {% if not day %}  
-    <div style="align-items: center; align-self: center; max-width: 35vw; font-size: larger; display: absolute; float: left; margin-left: 10vw;">
+        <div
+            style="align-items: center; align-self: center; max-width: 25vw; font-size: larger; display:flexbox; float: left; margin-left: 10vw; margin-top: 3vh;">
             <form method="POST">
                 <label for="day">Date:</label>
-                <input type="date" id="day" name="day">
-                <input type="submit">
-              </form>
-    <form method="POST">  
-    {% endif %}
-    {% if day %}
-    <p>Available Time Slots:</p> 
-        {% for time in time_slots %}
-    <div style="align-items: center; align-self: center; align-content: center; float:left">   
-        <div>
-            <input type="radio" id="time" name="time" value={{time}}
-                   checked>
-            <label for="time">{{time}}</label>
-       </div>
-        {% endfor %} 
+                <input color="black" type="text" id="txtdate" name="day" placeholder="MM/DD/YYYY" />
+                <input type="submit" value="Submit">
+            </form>
+            <form method="POST">
+                {% if day %}
+
+                <div style="width:25vw;display:flexbox; margin-top: 10px;">
+                    <p>Available Time Slots for {{day}}:</p>
+                    {% for time in time_slots %}
+                    <input type="radio" id="time" name="time" value={{time}} checked>
+                    <input type="hidden" id="day2" name="day2" value={{day}} checked>
+                    <label for="time">{{time}}</label>
+                    {% endfor %}
+
+                    <div style="margin-top:30px;">
+                        <input type="submit" value="Book Appointment">
+                    </div>
+                </div>
+                {% endif %}
+
+            </form>
+        </div>
     </div>
-    {% endif %}
-    <div style= "margin-top:30px;">
-    <input type="submit" >
-        <label for="submit">Book Appointment</label>  
-    </div>
-</form> 
 </body>
+
 </html>
