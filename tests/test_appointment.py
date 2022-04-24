@@ -6,8 +6,8 @@ class TestAppointment(unittest.TestCase):
     def setUp(self):
         self.appointment1 = Appointment("John Green", "doctorimage.com", "7874059898", "123 Street", "dermatologist",
                                         "123123123")
-        self.appointment2 = Appointment("Guillermo Sanchez", "doctorimagewebsite.com", "Universal Studios Orlando",
-                                        "7874294698", "neurologist", "asdfsadf")
+        self.appointment2 = Appointment("Guillermo Sanchez", "doctorimagewebsite.com","7874294698","Universal Studios Orlando",
+                                        "neurologist", "asdfsadf")
 
     def test00_init(self):
         self.assertEqual(self.appointment1.name, "John Green")
