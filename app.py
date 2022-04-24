@@ -62,7 +62,9 @@ def schedule(doc_id):
         collection = mongo.db.events
         time_slots2=Appointment.get_available_time_slots(doc_id,day,mongo,time_slots)
         if time:
-            Event.create_event(time,day,appt_id,doc_id,mongo)
+            day=request.form.get('day2')
+            print(day)
+            Event.create_event(day,time,appt_id,doc_id,mongo)
             return redirect("/Schedule/"+appt_id)
         return render_template("appointment.html", day=day, time_slots=time_slots2,
                                doctor_image="https://www.pinnaclecare.com/wp-content/uploads/2017/12/bigstock-African-young-doctor-portrait-28825394.jpg",

@@ -84,6 +84,7 @@
                     <p>Available Time Slots for {{day}}:</p>
                     {% for time in time_slots %}
                     <input type="radio" id="time" name="time" value={{time}} checked>
+                    <input type="hidden" id="day2" name="day2" value={{day}} checked>
                     <label for="time">{{time}}</label>
                     {% endfor %}
 
