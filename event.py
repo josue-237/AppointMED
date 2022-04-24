@@ -88,7 +88,7 @@ class Event:
         }
 
     @staticmethod
-    def create_event(start_time: str, date: str, appointment_id: str, doctor_id: str, database):
+    def create_event(date: str, start_time: str, appointment_id: str, doctor_id: str, database):
         """
         Method returns an event object and stores it in a mongoDB database
         :param start_time: Time event starts
