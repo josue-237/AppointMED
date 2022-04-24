@@ -119,7 +119,7 @@ input:focus, textarea:focus, select:focus{
     justify-content: center;
     font-size: 4em;
 }
-.about-content p {
+.about-content  {
     position: absolute;
     left: 50vw;
     width: 500px;
