@@ -7,10 +7,10 @@ class Event:
         :param appointment_id: ID of appointment associated with event
         :param doctor_id: ID of doctor associated with event
         """
-        self.date = self.set_date(date)
-        self.start_time = self.set_start_time(start_time)
-        self.appointment_id = self.set_appointment_id(appointment_id)
-        self.doctor_id = self.set_doctor_id(doctor_id)
+        self.set_date(date)
+        self.set_start_time(start_time)
+        self.set_appointment_id(appointment_id)
+        self.set_doctor_id(doctor_id)
 
     def __str__(self):
         """
