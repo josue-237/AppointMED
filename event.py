@@ -29,8 +29,8 @@ class Event:
         if type(date) != str:
             raise TypeError("date must be a string")
         date_elements = date.split("/")
-        day = date_elements[0]
-        month = date_elements[1]
+        day = date_elements[1]
+        month = date_elements[0]
         year = date_elements[2]
         if int(day) <= 0 or int(day) >= 32:
             raise ValueError("date is invalid")
