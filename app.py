@@ -70,15 +70,6 @@ def schedule():
                                doctor_phone="559-206-4429", medical_plans=medical_plans)
 
 
-@app.route("/event", methods=["GET", "POST"])
-def appointment():
-    if request.form == "GET":
-        return render_template("temp.html")
-        qrcode.make("Temp line, delete later")
-    else:
-        pass
-
-
 @app.route("/datepicker")
 def datepicker():
     return render_template("datepicker.html")
