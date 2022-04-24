@@ -28,6 +28,11 @@ class Event:
     def set_start_time(self, start_time: str):
         if type(start_time) != str:
             raise TypeError("start_time must be a string")
+        if start_time not in ["08:00am", "08:30am", "09:00am", "09:30am", "10:00am", "10:30am", "11:00am", "11:30am",
+                              "12:00pm",
+                              "12:30pm", "01:00pm", "01:30pm", "02:00pm", "02:30pm", "03:00pm", "03:30pm", "04:00pm",
+                              "04:30pm"]:
+            raise ValueError("start_time is not a valid time")
         self.start_time = start_time
 
     def set_appointment_id(self, appointment_id: str):
