@@ -38,16 +38,16 @@ def home():
     pass
 
 
-@app.route("/Schedule", methods=["GET", "POST"])
-def schedule():
+@app.route("/Schedule/<doc_id>", methods=["GET", "POST"])
+def schedule(doc_id):
     medical_plans = ["Triple S", "Medicaid", "UnitedHealth"]
     doctor_name = "Richard Silverstein"
     doc_id = doctor_ids[doctor_name]
-
+    
     if request.form == "GET":
-        time_slots2 = []
-        time = ''
-
+        time_slots2=[]
+        time=''
+        
         # time_slots= Appointment.get_available_time_slots(doc_id,"04-22-2022",mongo)
         return render_template("appointment.html", day='', time_slots=time_slots2,
                                doctor_image="https://www.pinnaclecare.com/wp-content/uploads/2017/12/bigstock-African-young-doctor-portrait-28825394.jpg",
@@ -55,20 +55,21 @@ def schedule():
                                doctor_address="14 Calle Peral N Ste La Mayaguez PR, 00680, Estados Unidos",
                                doctor_phone="559-206-4429", medical_plans=medical_plans)
     else:
-        day = request.form.get('day')
-        time = ''
-        time = request.form.get('time')
-        appt_id = Appointment.generate_appointment_id()
+        day = str(request.form.get('day'))
+        time=''
+        time=request.form.get('time')
+        appt_id=Appointment.generate_appointment_id()
         collection = mongo.db.events
-        time_slots2 = Appointment.get_available_time_slots(doc_id, day, mongo, time_slots)
+        time_slots2=Appointment.get_available_time_slots(doc_id,day,mongo,time_slots)
         if time:
-            return redirect("/Schedule/" + appt_id)
+            Event.create_event(time,day,appt_id,doc_id,mongo)
+            return redirect("/Schedule/"+appt_id)
         return render_template("appointment.html", day=day, time_slots=time_slots2,
                                doctor_image="https://www.pinnaclecare.com/wp-content/uploads/2017/12/bigstock-African-young-doctor-portrait-28825394.jpg",
                                doctor_name="Richard Silverstein", doctor_specialty="Dermatologist",
                                doctor_address="14 Calle Peral N Ste La Mayaguez PR, 00680, Estados Unidos",
                                doctor_phone="559-206-4429", medical_plans=medical_plans)
-
+            
 
 @app.route("/datepicker")
 def datepicker():
