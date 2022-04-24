@@ -5,22 +5,20 @@ from appointment import Appointment
 from flask_pymongo import PyMongo
 import certifi
 from event import Event
+from doctor import Doctor
 import qrcode
 from doctor import Doctor
 
+
+# -- Initialization section --
 app = Flask(__name__)
-# MongoDB
-# client = pymongo.MongoClient("mongodb+srv://admin:" + os.environ["MONGO_APPOINTMED_PWD"] +
-#                              "@cluster0.vsmni.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-client = pymongo.MongoClient("mongodb+srv://SDS:" + os.environ.get(
-    "MONGO_PW") + "@cluster0.zc52h.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
-app.config["MONGO_DBNAME"] = "cluster0"
+# name of database
+app.config["MONGO_DBNAME"] = "AppointMED"
 
-app.config[
-    "MONGO_URI"
-] = "mongodb+srv://SDS:" + os.environ.get(
-    "MONGO_PW") + "@cluster0.zc52h.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+# URI of database
+app.config['MONGO_URI'] = "mongodb+srv://admin:1CBSqy89oXd60vpW@cluster0.vq3ym.mongodb.net/AppointMED?retryWrites=true&w=majority"
+
 
 time_slots = ["08:00am", "08:30am", "09:00am", "09:30am", "10:00am", "10:30am", "11:00am", "11:30am", "12:00pm",
               "12:30pm", "01:00pm", "01:30pm", "02:00pm", "02:30pm", "03:00pm", "03:30pm", "04:00pm", "04:30pm"]
@@ -28,15 +26,19 @@ time_slots = ["08:00am", "08:30am", "09:00am", "09:30am", "10:00am", "10:30am", 
 doctor_ids = {"Richard Silverstein": "1234"}
 
 mongo = PyMongo(app, tlsCAFile=certifi.where())
-db = client.test
 
-
-# mongo.db.create_collection('events')
+# mongo.db.create_collection('doctors')
 
 @app.route("/")
-@app.route("/home")
+@app.route("/home", methods=["GET", "POST"])
 def home():
-    pass
+    if request.method == "GET":
+        doctors = Doctor.get_doctors(mongo)
+    else:
+        specialty = request.form['doctor-specialty']
+        name = request.form['doctor-name']
+        doctors = Doctor.get_filtered_doctors(mongo, specialty, name)
+    return render_template("home.html", doctors=doctors)
 
 
 @app.route("/Schedule/<doc_id>", methods=["GET", "POST"])
@@ -108,6 +110,9 @@ def seed_db():
     # event5=Event.create_event("22-06-2022","01:30pm","2423fe323",doc_id,mongo)
     collection = mongo.db.doctors
     Doctor.create_doctor("John", "Green", ['dermatologist',"allergist"], "2925 Sycamore Dr # 204, Simi Valley, CA 93065, United States", 18.368650, -66.053291, ["United Health","Triple S"], 7876899012, "https://totalcommercial.com/photos/1/206401-resized.jpg", mongo)
+    doctor1 = Doctor.create_doctor("Damaris", "Torres", ["neurologist"], "San Juan, P.R.", 18.466333, -66.105721, ["Triple S", "Medicaid"], "787-777-7776", 'url()', mongo)
+    doctor1 = Doctor.create_doctor(" Jose", "Rodriguez", ["dermatologist"], "Rio Grande, P.R.", 18.38023, -65.83127, ["Triple S"], "787-776-7776", 'url()', mongo)
+    doctor1 = Doctor.create_doctor("Pedro", "Figueroa", ["allergist"], "Mayaguez, P.R.", 18.20107, -67.139627, ["Medicaid"], "787-576-7776", 'url()', mongo)
 
     return "seeded successfully"
 

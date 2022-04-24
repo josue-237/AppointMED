@@ -1,6 +1,9 @@
 
 import hashlib
+import json
 import time
+
+from flask import jsonify
 
 
 class Doctor:
@@ -25,7 +28,7 @@ class Doctor:
         The doctor's office longitude cordinate
     medical_coverages : list of str
         The medical plan coverages the doctor accepts
-    phone_number : int
+    phone_number : str
         The doctor's office phone number.
     photo_url : str
         The doctor's photo url.
@@ -66,7 +69,7 @@ class Doctor:
         Generates a unique doctor's id
     """
 
-    curr_specialties = {'dermatologist', 'allergist', 'cardiologist', 'gastroenterologist'}
+    curr_specialties = {'dermatologist', 'allergist', 'cardiologist', 'gastroenterologist', 'neurologist'}
 
     def __init__(self, first_name, last_name, specialties, address, lat, lng, medical_coverages, phone_number, photo_url):
         """
@@ -86,7 +89,7 @@ class Doctor:
             The doctor's office longitude cordinate
         medical_coverages : list of str
             The medical plan coverages the doctor accepts
-        phone_number : int
+        phone_number : str
             The doctor's office phone number.
         photo_url : str
             The doctor's photo url.
@@ -125,10 +128,30 @@ class Doctor:
         return list(doctors)
 
     @staticmethod
-    def get_filtered_doctors(database, filters):
+    def get_filtered_doctors(database, specialty, name):
         """ A static method, that filters doctors by the given input from the user
         """
-        pass
+
+        collection = database.db.doctors
+        if not specialty and not name:
+            return collection.find()
+        elif not specialty:
+            print('im here')
+            return collection.aggregate([{'$search': {'index': 'name','text': {'query': name,'path': {'wildcard': '*'}}}}])
+        elif not name:
+            collection.a
+            return collection.find({'specialties': specialty})
+        name_filter = collection.aggregate([{'$search': {'index': 'name','text': {'query': name,'path': {'wildcard': '*'}}}}])
+        result = []
+        for doctor in name_filter:
+            add = True
+            for spty in doctor['specialties']:
+                if spty != specialty:
+                    add = False
+            if add:
+                result.append(doctor)
+        return result
+            
 
     def to_json(self):
         """ Converts a doctor object to json format
@@ -202,7 +225,7 @@ class Doctor:
             if type(specialty) != str:
                 raise TypeError("The doctor's specialty is not of type string")
             if specialty not in self.curr_specialties:
-                raise ValueError(specialty +  "specialty is currently not supported")
+                raise ValueError(specialty +  " specialty is currently not supported")
         return specialties
 
     def valid_address(self, address):
@@ -297,16 +320,16 @@ class Doctor:
 
         Parameters
         ----------
-        phone_number : int
+        phone_number : str
             The doctor's office phone number.
 
         Raises
         ------
         TypeError
-            If the doctor's office phone number is not an int
+            If the doctor's office phone number is not an str
         """
-        if type(phone_number) != int:
-            raise TypeError("Doctor's office phone number should be of type int")
+        if type(phone_number) != str:
+            raise TypeError("Doctor's office phone number should be of type str")
         return phone_number
 
     def valid_photo_url(self, photo_url):
@@ -323,7 +346,7 @@ class Doctor:
             If the doctor's photo url is not a string.
         """
         if type(photo_url) != str:
-            raise TypeError("Doctor'sphoto url should be of type string")
+            raise TypeError("Doctor's photo url should be of type string")
         return photo_url
 
     def generate_doctor_id(self):
