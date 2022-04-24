@@ -23,6 +23,12 @@ class Event:
     def set_date(self, date: str):
         if type(date) != str:
             raise TypeError("date must be a string")
+        date_elements = date.split("-")
+        day = date_elements[0]
+        month = date_elements[1]
+        year = date_elements[2]
+        if 0 < int(day) < 32 and 0 < int(month) < 13 and 0 < int(year) < 3000:
+            raise ValueError("date is invalid")
         self.date = date
 
     def set_start_time(self, start_time: str):
@@ -38,6 +44,8 @@ class Event:
     def set_appointment_id(self, appointment_id: str):
         if type(appointment_id) != str:
             raise TypeError("appointment_id must be a string")
+        if len(appointment_id) != 40:
+            raise ValueError("appointment_id must be 40 characters long")
         self.appointment_id = appointment_id
 
     def set_doctor_id(self, doctor_id: str):
