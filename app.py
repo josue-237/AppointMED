@@ -90,11 +90,6 @@ def confirmed_event(appt_id):
     return render_template("event.html", date=date, start_time=start_time, appointment_id=appointment_id)
 
 
-@app.route("/datepicker")
-def datepicker():
-    return render_template("datepicker.html")
-
-
 @app.route("/seed_db")
 def seed_db():
     # collection = mongo.db.events
