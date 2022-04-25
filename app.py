@@ -39,6 +39,11 @@ def home():
     return render_template("home.html", doctors=doctors)
 
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+
 @app.route("/Schedule/<doc_id>", methods=["GET", "POST"])
 def schedule(doc_id):
     collection = mongo.db.doctors
