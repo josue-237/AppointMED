@@ -135,3 +135,43 @@ input:focus, textarea:focus, select:focus{
     padding: 5px 10px;
 
 }
+.doc-image{
+    float: left; 
+    margin: 0px 15px 0px 0px; 
+    max-width: 25vw;
+    max-height: 25vh; 
+    margin-left: 3vw;
+    display: flexbox;
+
+}
+.select-date{
+    align-items: center; 
+    align-self: center; 
+    max-width: 25vw; 
+    font-size: larger; 
+    display:flexbox; 
+    float: left;
+    margin-left: 10vw; 
+    margin-top: 3vh;
+}
+.available-times{
+    width:25vw;
+    display:flexbox; 
+    margin-top: 10px;
+}
+.submit-button{
+    margin-top:30px;
+}
+.center{
+    text-align: center;
+}
+.doctor-nameP{
+    font-size: xx-large;
+    text-align: center;
+}
+.specialties{
+    font-size: x-large;
+}
+.large-text{
+   font-size: large;
+}
