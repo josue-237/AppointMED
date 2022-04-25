@@ -80,7 +80,13 @@ def schedule(doc_id):
                                doctor_name=doctor_name, doctor_specialty=specialties,
                                doctor_address=address,
                                doctor_phone=phone, medical_plans=medical_plans)
-            
+
+@app.route("/<appt_id>", methods=["GET", "POST"])
+def event(appt_id):
+    if request.method == "GET":
+        return render_template("about.html")
+    else:
+        print("here")
 
 @app.route("/datepicker")
 def datepicker():
@@ -106,5 +112,3 @@ def seed_db():
     doctor1 = Doctor.create_doctor("Pedro", "Figueroa", ["allergist"], "Mayaguez, P.R.", 18.20107, -67.139627, ["Medicaid"], "787-576-7776", 'url()', mongo)
 
     return "seeded successfully"
-
-
