@@ -26,3 +26,16 @@ function getLocations(){
     });
     return cords
 }
+
+$(function () {
+    var selectedDates = [];
+    datePicker = $('[id*=txtdate]').datepicker({
+        startDate: new Date(),
+        minDate: 0,
+        multidate: true,
+        format: "mm/dd/yyyy",
+        daysOfWeekHighlighted: "0,6",
+        language: 'en',
+        daysOfWeekDisabled: [0, 6]
+    });
+});

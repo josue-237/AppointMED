@@ -15,28 +15,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css" />
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            var selectedDates = [];
-            datePicker = $('[id*=txtdate]').datepicker({
-                startDate: new Date(),
-                minDate: 0,
-                multidate: true,
-                format: "mm/dd/yyyy",
-                daysOfWeekHighlighted: "0,6",
-                language: 'en',
-                daysOfWeekDisabled: [0, 6]
-            });
-            datePicker.on('changeDate', function (e) {
-                if (e.dates.length <= 1) {
-                    selectedDates = e.dates;
-                } else {
-                    datePicker.data('datepicker').setDates(selectedDates);
-                    alert('You can only select 1 date.');
-                }
-            });
-        });
-    </script>
+    <script type="text/javascript" src="../static/js/script.js"> </script>
 
     <title>AppointMED</title>
 </head>
@@ -51,30 +30,28 @@
         </div>
     </div>
     <div class="image-content">
-        <div style="text-align: center;">
-            <p style="font-size: xx-large;">Dr. {{doctor_name}} </p>
-            <p style="font-size: x-large;"> Specialized in:
+        <div class='center'>
+            <p class="doctor-name">Dr. {{doctor_name}} </p>
+            <p class="specialties"> Specialized in:
             {% for specialty in doctor_specialty %}
             {{specialty}}
             {% endfor %}</p>
-            <p style="font-size: large;"> Address: {{doctor_address}} </p>
-            <p style="font-size: large;"> Medical Plans covered:
+            <p class="large-text"> Address: {{doctor_address}} </p>
+            <p class="large-text" > Medical Plans covered:
                 {% for plan in medical_plans %}
                 {{plan}}  
                 {% endfor %}
             </p>
-            <p style="font-size: large;"> Contact Number: {{doctor_phone}} </p>
+            <p class="large-text"> Contact Number: {{doctor_phone}} </p>
             <div>
 
             </div>
         </div>
-        <div
-            style="float: left; margin: 0px 15px 0px 0px; max-width: 25vw;max-height: 25vh; margin-left: 3vw;display:flexbox;">
+        <div class="doc-image">
             <img src={{doctor_image}}>
         </div>
         &nbsp;
-        <div
-            style="align-items: center; align-self: center; max-width: 25vw; font-size: larger; display:flexbox; float: left; margin-left: 10vw; margin-top: 3vh;">
+        <div class="select-date">
             <form method="POST">
                 <label for="day">Date:</label>
                 <input color="black" type="text" id="txtdate" name="day" placeholder="MM/DD/YYYY" />
@@ -83,7 +60,7 @@
             <form method="POST">
                 {% if day %}
 
-                <div style="width:25vw;display:flexbox; margin-top: 10px;">
+                <div class="available-times">
                     <p>Available Time Slots for {{day}}:</p>
                     {% for time in time_slots %}
                     <input type="radio" id="time" name="time" value={{time}} checked>
@@ -91,7 +68,7 @@
                     <label for="time">{{time}}</label>
                     {% endfor %}
 
-                    <div style="margin-top:30px;">
+                    <div class="submit-button">
                         <input type="submit" value="Book Appointment">
                     </div>
                 </div>
