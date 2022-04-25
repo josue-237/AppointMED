@@ -1,14 +1,10 @@
-from flask import Flask, render_template, request, redirect
-import pymongo
-import os
-from appointment import Appointment
-from flask_pymongo import PyMongo
 import certifi
-from event import Event
-from doctor import Doctor
-import qrcode
-from doctor import Doctor
+from flask import Flask, render_template, request, redirect
+from flask_pymongo import PyMongo
 
+from appointment import Appointment
+from doctor import Doctor
+from event import Event
 
 # -- Initialization section --
 app = Flask(__name__)
@@ -81,12 +77,16 @@ def schedule(doc_id):
                                doctor_address=address,
                                doctor_phone=phone, medical_plans=medical_plans)
 
-@app.route("/<appt_id>", methods=["GET", "POST"])
-def event(appt_id):
-    if request.method == "GET":
-        return render_template("about.html")
-    else:
-        print("here")
+
+@app.route("/<appt_id>")
+def confirmed_event(appt_id):
+    event = Event.get_event(appt_id, mongo)
+    date = event.get_date()
+    start_time = event.get_start_time()
+    appointment_id = event.get_appointment_id()
+
+    return render_template("event.html", date=date, start_time=start_time, appointment_id=appointment_id)
+
 
 @app.route("/datepicker")
 def datepicker():
