@@ -1,3 +1,4 @@
+import os
 import certifi
 from flask import Flask, render_template, request, redirect
 from flask_pymongo import PyMongo
@@ -14,8 +15,9 @@ app.config["MONGO_DBNAME"] = "AppointMED"
 
 # URI of database
 app.config[
-    'MONGO_URI'] = "mongodb+srv://admin:1CBSqy89oXd60vpW@cluster0.vq3ym.mongodb.net/AppointMED?retryWrites=true&w" \
-                   "=majority"
+    'MONGO_URI'] = "mongodb+srv://admin:" + os.environ.get(
+    "MONGO_PW") + "@cluster0.vq3ym.mongodb.net/AppointMED?retryWrites=true&w" \
+                  "=majority"
 
 time_slots = ["08:00am", "08:30am", "09:00am", "09:30am", "10:00am", "10:30am", "11:00am", "11:30am", "12:00pm",
               "12:30pm", "01:00pm", "01:30pm", "02:00pm", "02:30pm", "03:00pm", "03:30pm", "04:00pm", "04:30pm"]
