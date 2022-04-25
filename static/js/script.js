@@ -32,7 +32,7 @@ $(function () {
     datePicker = $('[id*=txtdate]').datepicker({
         startDate: new Date(),
         minDate: 0,
-        multidate: true,
+        multidate: false,
         format: "mm/dd/yyyy",
         daysOfWeekHighlighted: "0,6",
         language: 'en',
