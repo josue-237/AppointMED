@@ -53,7 +53,15 @@ class Appointment:
         self.phone = doctor_phone
         return doctor_phone
     
-    
+    ''' 
+    Function that checks the events database to extract the time slots already taken by other appoitnments to get the currently
+    available time slots for the doctor specified in the date chosen
+
+    :param doc_id: string id of the doctor that will be looked up in the database
+    :param day: The date string chosen by the user that will check the available time slots
+    :param database: the database chosen to lookup the events
+    :time_slots: list of all available time slots on any given day they're half hour intervals from 8am-5pm
+    '''
     @staticmethod
     def get_available_time_slots(doc_id,day,database,time_slots):
         collection = database.db.events
